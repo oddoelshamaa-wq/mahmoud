@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيت قبض الموظفين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="MODY.JPJ.jpg" alt="Logo" class="logo">
+        </div>
+        <h1>شيت قبض الموظفين</h1>
+
+        <div class="form-row">
+            <div>
+                <label>اختر الشهر:</label>
+                <select id="monthSelect" onchange="updateAttendanceTable()">
+                    <option value="1">يناير</option>
+                    <option value="2">فبراير</option>
+                    <option value="3">مارس</option>
+                    <option value="4">أبريل</option>
+                    <option value="5">مايو</option>
+                    <option value="6">يونيو</option>
+                    <option value="7">يوليو</option>
+                    <option value="8">أغسطس</option>
+                    <option value="9">سبتمبر</option>
+                    <option value="10">أكتوبر</option>
+                    <option value="11">نوفمبر</option>
+                    <option value="12">ديسمبر</option>
+                </select>
+            </div>
+            <div>
+                <label>اختر الفرع:</label>
+                <select id="branchSelect" onchange="filterEmployees()">
+                    <option value="">-- كل الفروع --</option>
+                    <option value="فرع 1">فرع 1</option>
+                    <option value="فرع 2">فرع 2</option>
+                    <option value="فرع 3">فرع 3</option>
+                    <option value="فرع 4">فرع 4</option>
+                    <option value="فرع 5">فرع 5</option>
+                    <option value="فرع 6">فرع 6</option>
+                </select>
+            </div>
+            <div>
+                <label>اسم الموظف:</label>
+                <input type="text" id="name" placeholder="أدخل اسم الموظف">
+            </div>
+            <div>
+                <label>الوظيفة:</label>
+                <input type="text" id="job" placeholder="أدخل الوظيفة">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label>سعر الساعة:</label>
+                <input type="number" id="hourPrice" placeholder="0">
+            </div>
+            <div>
+                <label>الأجر اليومي:</label>
+                <input type="number" id="dailyWage" placeholder="0">
+            </div>
+            <div>
+                <label>خصم إضافي:</label>
+                <input type="number" id="extraDeduction" placeholder="0">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label>خصم التأمينات:</label>
+                <input type="number" id="insuranceDeduction" placeholder="0">
+            </div>
+            <div>
+                <label>السلف / القروض:</label>
+                <input type="number" id="loansDeduction" placeholder="0">
+            </div>
+            <div>
+                <label>عدد أشهر السلف:</label>
+                <input type="number" id="loansMonths" placeholder="1" value="1">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label>إضافي:</label>
+                <input type="number" id="additional" placeholder="0">
+            </div>
+            <div>
+                <label>خصم يوم 10:</label>
+                <input type="number" id="deduction10" placeholder="10" value="10">
+            </div>
+            <div>
+                <label>خصم يوم 20:</label>
+                <input type="number" id="deductionDay20" placeholder="20" value="20">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label>اختر الموظف لتعديل الحضور:</label>
+                <select id="attendanceEmployeeSelect" onchange="selectEmployeeForAttendance()">
+                    <option value="">-- اختر موظف --</option>
+                </select>
+            </div>
+        </div>
+
+        <h3>جدول الحضور والانصراف (أيام 1 - 30)</h3>
+        <table id="attendanceTable">
+            <tr><th>اليوم</th><th>حضور</th><th>انصراف</th></tr>
+        </table>
+
+        <button onclick="saveEmployee()">اضافة / تحديث الموظف</button>
+        <button onclick="calculate()">احسب صافي المرتب</button>
+        <button onclick="exportData()">تصدير البيانات</button>
+        <input type="file" id="importFile" accept=".json" onchange="importData(event)">
+        <label for="importFile">استيراد البيانات</label>
+        <button onclick="printPaySheet()">طباعة ورقة القبض</button>
+        <button onclick="printGrandTotals()">طباعة الإجماليات الكلية</button>
+        <button onclick="printAllEmployees()">طباعة جميع الموظفين</button>
+
+        <h3>ورقة القبض</h3>
+        <div>
+            <label>اختر الموظف:</label>
+            <select id="employeeSelect" onchange="filterPaySheet()">
+                <option value="">جميع الموظفين</option>
+            </select>
+        </div>
+        <table id="paySheetTable">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>الشهر</th>
+                    <th>الفرع</th>
+                    <th>رقم الموظف في الفرع</th>
+                    <th>أيام العمل</th>
+                    <th>ساعات إضافية</th>
+                    <th>ساعات تأخير</th>
+                    <th>أيام غياب</th>
+                    <th>الأجر الأساسي</th>
+                    <th>إضافي</th>
+                    <th>خصم تأخير</th>
+                    <th>خصم غياب</th>
+                    <th>خصم سلف</th>
+                    <th>خصم تأمينات</th>
+                    <th>خصم إضافي</th>
+                  
+                    <th>خصم 10</th>
+                    <th>خصم يوم 20</th>
+                    <th>الأجر اليومي</th>
+                    <th>صافي المرتب</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>الموظفين</h3>
+        <table id="employeeTable">
+            <thead><tr><th>الاسم</th><th>الوظيفة</th><th>إجراءات</th></tr></thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>إجمالي صافي المرتب حسب الفرع</h3>
+        <table id="branchTotalsTable">
+            <thead>
+                <tr>
+                    <th>الفرع</th>
+                    <th>عدد الموظفين</th>
+                    <th>إجمالي صافي المرتب يوميًا</th>
+                    <th>إجمالي صافي المرتب شهريًا</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>إجمالي الرواتب اليومية حسب الفرع</h3>
+        <table id="dailyTotalsTable">
+            <thead>
+                <tr>
+                    <th>الفرع</th>
+                    <th>اليوم</th>
+                    <th>إجمالي الرواتب اليومية</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>مراجع شهري للموظفين</h3>
+        <table id="monthlyReviewTable">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>الفرع</th>
+                    <th>صافي المرتب الشهري</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="footer-print">
+        <p>إدارة نجف</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

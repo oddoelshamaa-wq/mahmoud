@@ -1,0 +1,53 @@
+{
+  "employees": [
+    {
+      "name": "محمود",
+      "job": "مهندس",
+      "branch": "فرع 1",
+      "hourPrice": 17,
+      "dailyWage": 230,
+      "extraDeduction": 0,
+      "insuranceDeduction": 0,
+      "loansDeduction": 0,
+      "loansMonths": 1,
+      "additional": 0,
+      "loanMonthsPaid": 0,
+      "employeeCounter": 1
+    },
+    {
+      "name": "محموج",
+      "job": "مهندس",
+      "branch": "فرع 1",
+      "hourPrice": 10,
+      "dailyWage": 130,
+      "extraDeduction": 0,
+      "insuranceDeduction": 0,
+      "loansDeduction": 0,
+      "loansMonths": 1,
+      "additional": 0,
+      "loanMonthsPaid": 0,
+      "employeeCounter": 2
+    },
+    {
+      "name": "منه",
+      "job": "محاسبه",
+      "branch": "فرع 1",
+      "hourPrice": 1,
+      "dailyWage": 100,
+      "extraDeduction": 0,
+      "insuranceDeduction": 0,
+      "loansDeduction": 0,
+      "loansMonths": 1,
+      "additional": 0,
+      "loanMonthsPaid": 0,
+      "employeeCounter": 3
+    }
+  ],
+  "attendance": {
+    "محمود": {
+      "11": {}
+    },
+    "محموج": {},
+    "منه": {}
+  }
+}

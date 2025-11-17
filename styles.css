@@ -1,0 +1,163 @@
+body {
+    font-family: "Cairo", sans-serif;
+    background: linear-gradient(135deg, #f3f4f6, #e9ecef);
+    padding: 20px;
+    margin: 0;
+    direction: rtl;
+}
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo {
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+.footer-print {
+    display: none;
+}
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+.container {
+    max-width: 1400px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+}
+input, select {
+    padding: 8px;
+    width: 100%;
+    max-width: 300px;
+    margin: 5px 0 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+button:hover {
+    background: #0056b3;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+tbody tr:hover {
+    background: #f1f3f4;
+}
+.negative {
+    color: red;
+}
+#attendanceTable {
+    max-height: 400px;
+    overflow-y: auto;
+    display: block;
+}
+#attendanceTable thead {
+    position: sticky;
+    top: 0;
+    background: #fff;
+}
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.form-row > div {
+    flex: 1;
+    min-width: 200px;
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    input, select {
+        width: 100%;
+    }
+    .form-row {
+        flex-direction: column;
+    }
+}
+@media print {
+    body {
+        font-size: 12px;
+        margin: 0;
+        padding: 10px;
+    }
+    .container {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+    .logo-container {
+        text-align: center;
+        margin-bottom: 15px;
+        display: block;
+    }
+    .logo {
+        max-width: 150px;
+        height: auto;
+        display: inline-block;
+    }
+    table {
+        font-size: 10px;
+        margin: 0;
+    }
+    th, td {
+        padding: 5px;
+        font-size: 10px;
+    }
+    button, input[type="file"], label {
+        display: none;
+    }
+    h1, h3 {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+    .form-row, #attendanceTable, #employeeTable, #branchTotalsTable, #dailyTotalsTable, #monthlyReviewTable, #paySheetTable {
+        display: none;
+    }
+    .footer-print {
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+}

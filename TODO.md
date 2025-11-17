@@ -1,0 +1,8 @@
+- [x] إضافة حقل إدخال "سحب" في HTML
+- [x] تحديث كائن الموظف في JS لإضافة withdrawal
+- [x] تحديث دالة editEmployee لتعيين withdrawal
+- [ ] تحديث دالة clearForm لمسح withdrawal
+- [ ] تحديث حساب صافي المرتب لخصم withdrawal
+- [ ] إضافة عمود "خصم سحب" في جدول paySheetTable
+- [ ] تحديث المجاميع لتشمل withdrawal
+- [ ] تحديث دالة printPaySheet لإضافة صف خصم سحب

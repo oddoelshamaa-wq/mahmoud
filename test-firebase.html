@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تجربة Firebase بسيطة</title>
+<style>
+body { font-family: "Cairo", sans-serif; background: #f4f6f9; text-align: center; padding: 20px; }
+input, button { padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+button { background: #007bff; color: white; cursor: pointer; }
+button:hover { background: #0056b3; }
+#employees { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h2>🧪 تجربة حفظ الموظفين في Firebase</h2>
+<input type="text" id="name" placeholder="اسم الموظف">
+<input type="text" id="job" placeholder="الوظيفة">
+<button onclick="saveEmployee()">حفظ</button>
+
+<h3>📋 قائمة الموظفين</h3>
+<div id="employees"></div>
+
+<!-- مكتبات Firebase -->
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
+
+<script>
+// إعداد Firebase (بمفاتيحك الحقيقية)
+const firebaseConfig = {
+  apiKey: "AIzaSyBOXZCO7zF93g9zPbhVDI8r_AEV_-2PGLs",
+  authDomain: "mahmoud-e2ad1.firebaseapp.com",
+  databaseURL: "https://mahmoud-e2ad1-default-rtdb.firebaseio.com",
+  projectId: "mahmoud-e2ad1",
+  storageBucket: "mahmoud-e2ad1.firebasestorage.app",
+  messagingSenderId: "1056736197329",
+  appId: "1:1056736197329:web:0d083d8082f0893b0763f0",
+  measurementId: "G-LEDWJMJ5L9"
+};
+
+// التهيئة
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// حفظ موظف
+function saveEmployee() {
+  let name = document.getElementById("name").value.trim();
+  let job = document.getElementById("job").value.trim();
+  if (!name || !job) return alert("أدخل الاسم والوظيفة!");
+
+  // إنشاء id تلقائي
+  let newRef = db.ref("employees").push();
+  newRef.set({ name, job })
+    .then(() => alert("✅ تم الحفظ في Firebase"))
+    .catch(err => alert("❌ خطأ: " + err.message));
+}
+
+// تحميل الموظفين
+db.ref("employees").on("value", snapshot => {
+  let data = snapshot.val();
+  let container = document.getElementById("employees");
+  container.innerHTML = "";
+  if (data) {
+    Object.entries(data).forEach(([id, emp]) => {
+      container.innerHTML += `<p>👤 ${emp.name} – ${emp.job}</p>`;
+    });
+  } else {
+    container.innerHTML = "<p>لا يوجد موظفين بعد</p>";
+  }
+});
+</script>
+</body>
+</html>
