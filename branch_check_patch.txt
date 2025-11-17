@@ -1,0 +1,7 @@
+def employees(branch_id):
+    branch = Branch.query.get_or_404(branch_id)
+    user = User.query.get(session['user_id'])
+    # Check if user has access to this branch
+    if not user.is_admin and str(branch.id) not in (user.branch_ids or '').split(','):
+        return redirect(url_for('branches'))
+    if request.method == 'POST':
